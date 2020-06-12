@@ -1,0 +1,159 @@
+class Usuario {
+    RegistroAlertas registroAlertas
+    Atuendo atuendoSugeridoParaHoy
+    List<InformarNuevasAlertas> suscripciones
+
+    public Usuario(NotificarTormenta notificarTormenta, ...){ // paso todas las implementaciones de la interfaz "InformarNuevasAlertas"
+        suscripciones.add(notificarTormenta)
+    }
+
+    List<String> consultarAlertasVigentes {
+        registroAlertas.alertasVigentes();
+    }
+
+    void RecibirNotificacionesPorTormenta(){
+        NotificarTormenta notificadorTormentas = new NotificarTormenta(this);
+        this.suscripciones.add(notificadorTormentas);
+        RegistroAlertas.agregarInteresado(notificadorTormentas);
+    }
+
+    void nuevoAtuendoSugeridoParaHoy(Atuendo atuendo){
+        this.atuendoSugeridoParaHoy = atuendo;
+    }
+
+}
+
+class Empleado {
+    RegistroAlertas registroAlertas
+
+    void actualizarAlertas(){
+        registroAlertas.actualizarAlertas();
+    }
+
+}
+
+
+class RegistroAlertas {
+    ServicioMeteorologico servicioMeteorologico;
+    List<InformarNuevasAlertas> interesados;
+    
+
+    void agregarInteresado(InformarNuevasAlertas nuevoInteresado){
+        interesados.add(nuevoInteresado);
+    }
+
+    void quitarInteresado(InformarNuevasAlertas exInteresado){
+        interesados.remove(exInteresado);
+    }
+
+    void alertasVigentes(){
+        return this.alertasVigentes;
+    }
+
+    void actualizarAlertas(){
+        alertasActuales = servicioMeteorologico.obtenerAlertasVigentes();
+        if(alertasActuales != this.alertasVigentes){
+            this.alertasVigentes = alertasActuales;
+            informarNuevasAlertas();
+        }
+
+    }
+
+    void informarNuevasAlertas(){
+        this.interesados.stream().forEach(interesado -> interesado.hayNuevasAlertas(this.alertasVigentes));
+    }
+}
+
+
+interface InformarNuevasAlertas {
+    hayNuevasAlertas(List<Alerta> alertasVigentes)
+}
+
+class NotificarTormenta implements InformarNuevasAlertas {
+    List<Usuario> usuarios;
+
+    void agregarUsuario(Usuario usuario){
+        this.usuarios.add(usuario);
+    }
+
+    void quitarUsuario(Usuario usuario){
+        this.usuarios.remove(usuario);
+    }
+
+    hayNuevasAlertas(List<Alerta> alertasVigentes){
+        if(alertasVigentes.contains("TORMENTA")
+            this.usuarios.stream().forEach(usuario -> NotificationService>>notify("Lleva paraguas!");
+    }
+}
+
+class NotificarGranizo implements InformarNuevasAlertas {
+    List<Usuario> usuarios;
+
+    void agregarUsuario(Usuario usuario){
+        this.usuarios.add(usuario);
+    }
+
+    void quitarUsuario(Usuario usuario){
+        this.usuarios.remove(usuario);
+    }
+
+    hayNuevasAlertas(List<Alerta> alertasVigentes){
+        if(alertasVigentes.contains("Granizo")
+            this.usuarios.stream().forEach(usuario -> NotificationService>>notify("No uses el auto que se viene el granizo!");
+    }
+
+
+class EnviarMailAlerta implements InformarNuevasAlertas {
+    List<Usuario> usuarios;
+
+    void agregarUsuario(Usuario usuario){
+        this.usuarios.add(usuario);
+    }
+
+    void quitarUsuario(Usuario usuario){
+        this.usuarios.remove(usuario);
+    }
+
+    hayNuevasAlertas(List<Alerta> alertasVigentes){
+        this.usuarios.stream().forEach(usuario -> MailSender>>send(address, alertasVigentes)));
+    }
+}
+
+
+class AsesorDeImagen implements InformarNuevasAlertas {
+    List<Usuario> usuarios; 
+    ServicioMeteorologico servicioMeteorologico;    
+
+    Atuendo generarSugerencia(Usuario usuario){...}
+    
+    hayNuevasAlertas(List<Alerta> alertasVigentes){
+        this.usuarios.stream().forEach(usuario -> nuevoAtuendoSugeridoParaHoy(generarSugerencia(usuario)));
+    }
+
+}
+
+interface ServicioMeteorologico {
+  double temperaturaActualEnCelsius()
+  List<Alerta> obtenerAlertasVigentes()
+}
+
+enum Alerta {
+    TORMENTA, GRANIZO, ...
+}
+
+class ServicioMetorologicoAccuWeather {
+    
+  double temperaturaActualEnCelsius()
+  double deFarenheitACelsius(double temperaturaEnFarenheit);    
+  List<Alerta> obtenerAlertasVigentes()
+}
+
+class AccuWeatherAPI{
+
+}
+
+
+
+--------------------------------------------------------------------------------------------------
+
+
