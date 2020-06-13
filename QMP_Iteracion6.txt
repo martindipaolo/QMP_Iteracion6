@@ -52,7 +52,7 @@ class RegistroAlertas {
 
     void actualizarAlertas(){
         alertasActuales = servicioMeteorologico.obtenerAlertasVigentes();
-        if(alertasActuales != this.alertasVigentes){
+        if(sonListasDistintas(alertasActuales, this.alertasVigentes)){
             this.alertasVigentes = alertasActuales;
             informarNuevasAlertas();
         }
